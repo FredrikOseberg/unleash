@@ -1,0 +1,31 @@
+{
+  "$comment": "Project-level Claude Code settings for the UX visual-tweak Codespace flow. The agent may READ anything but may only WRITE to the visual surface (components + themes). It runs the typecheck/lint gates and opens a PR, but cannot touch the backend, generated OpenAPI types, CI workflows, or tests. See .claude/UX-TWEAK-GUIDE.md for the visual-only scoping the agent is expected to follow.",
+  "permissions": {
+    "allow": [
+      "Edit(frontend/src/component/**)",
+      "Write(frontend/src/component/**)",
+      "Edit(frontend/src/themes/**)",
+      "Write(frontend/src/themes/**)",
+      "Bash(pnpm --dir frontend run ts:check)",
+      "Bash(pnpm --dir frontend run lint:check)",
+      "Bash(pnpm --dir frontend run fmt:*)",
+      "Bash(git checkout -b *)",
+      "Bash(git add frontend/src/*)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(gh pr create *)"
+    ],
+    "deny": [
+      "Edit(frontend/src/openapi/**)",
+      "Write(frontend/src/openapi/**)",
+      "Edit(src/**)",
+      "Write(src/**)",
+      "Edit(.github/**)",
+      "Write(.github/**)",
+      "Edit(**/*.test.*)",
+      "Write(**/*.test.*)",
+      "Edit(**/*.spec.*)",
+      "Write(**/*.spec.*)"
+    ]
+  }
+}

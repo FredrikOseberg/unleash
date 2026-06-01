@@ -1,0 +1,24 @@
+{
+  "name": "Unleash frontend (sandbox)",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:22",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "Unleash UI preview",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "waitFor": "postCreateCommand",
+  "postCreateCommand": "mkdir -p .claude && cp .devcontainer/claude-settings.json .claude/settings.json && cp .devcontainer/UX-TWEAK-GUIDE.md .claude/UX-TWEAK-GUIDE.md && corepack enable && corepack prepare pnpm@11.1.1 --activate && pnpm --dir frontend install --frozen-lockfile",
+  "postAttachCommand": {
+    "dev-server": "pnpm --dir frontend run start:sandbox"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["anthropic.claude-code", "biomejs.biome"]
+    }
+  }
+}
